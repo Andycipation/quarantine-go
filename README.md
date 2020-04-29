@@ -1,0 +1,2 @@
+# quarantine-go
+Go!
