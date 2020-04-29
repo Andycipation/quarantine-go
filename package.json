@@ -1,3 +1,24 @@
 {
-  "name": "Quarantine Go"
+  "name": "quarantine-go",
+  "version": "1.0.0",
+  "description": "My version of Go.",
+  "main": "script.js",
+  "dependencies": {
+    "http": "^0.0.1-security"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrewDongAndy/quarantine-go.git"
+  },
+  "author": "Andrew Dong",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/AndrewDongAndy/quarantine-go/issues"
+  },
+  "homepage": "https://github.com/AndrewDongAndy/quarantine-go#readme"
 }

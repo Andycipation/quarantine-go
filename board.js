@@ -7,7 +7,7 @@ const log = document.getElementById('game-log');
 const ctx = canvas.getContext('2d');
 
 const STONE_COLOR = ['#000000', '#ffffff'];
-const GHOST_COLOR = ['#220000', '#ffffa0'];
+const GHOST_COLOR = ['#383838', '#e8e8e8'];
 
 /**
  * Equivalent to the processing.js line().
@@ -147,7 +147,12 @@ function updateBoard(ghostRow, ghostCol) {
   }
 }
 
-const DIRS = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+const DIRS = [
+  [1, 0],
+  [0, 1],
+  [-1, 0],
+  [0, -1]
+];
 
 function bfs(sr, sc, player) {
   if (board[sr][sc] != player) {
@@ -161,7 +166,9 @@ function bfs(sr, sc, player) {
     }
     was.push(row);
   }
-  let q = [[sr, sc]];
+  let q = [
+    [sr, sc]
+  ];
   let ptr = 0;
   let air = 0;
   while (ptr < q.length) {
@@ -244,7 +251,8 @@ function loadGame(str) {
     row = row.substr(1, row.length - 2);
     let col = m[6];
     col = col.substr(0, col.length - 1);
-    row--; col--;
+    row--;
+    col--;
     // console.log(`(${row}, ${col})`);
     move(row, col);
   }
