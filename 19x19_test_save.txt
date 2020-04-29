@@ -1,0 +1,5 @@
+black placed a stone at (16, 19)
+white placed a stone at (17, 18)
+black placed a stone at (17, 17)
+white placed a stone at (5, 13)
+black placed a stone at (9, 14)
