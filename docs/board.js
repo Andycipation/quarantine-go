@@ -7,7 +7,7 @@ const log = document.getElementById('game-log');
 const ctx = canvas.getContext('2d');
 
 const STONE_COLOR = ['#000000', '#ffffff'];
-const GHOST_COLOR = ['#220000', '#ffffa0'];
+const GHOST_COLOR = ['#383838', '#e8e8e8'];
 
 /**
  * Equivalent to the processing.js line().
