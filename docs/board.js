@@ -45,7 +45,7 @@ const MARGIN = 60;
 // regular-sized board:
 const ROWS = 19;
 const COLS = 19;
-const SPECIAL = [3, 9, 15];
+const SPECIAL = [3, 9, 15]; // intersections to mark
 
 // smaller board:
 // const ROWS = 9;
@@ -57,14 +57,14 @@ function inRange(r, c) {
 }
 
 function getPosition(row, col) {
-  return [MARGIN + SIZE * col, MARGIN + SIZE * row];
+  return [MARGIN + SIZE * col, MARGIN + SIZE * (ROWS - 1 - row)];
 }
 
 function getCoordinate(mouseX, mouseY) {
   let x = mouseX + RADIUS - MARGIN - 7;
   let y = mouseY + RADIUS - MARGIN - 7;
   let col = Math.floor(x / SIZE);
-  let row = Math.floor(y / SIZE);
+  let row = ROWS - 1 - Math.floor(y / SIZE);
   if (!inRange(row, col)) {
     return [-1, -1];
   }
@@ -75,6 +75,7 @@ function drawBoard(rows, cols) {
   ctx.fillStyle = '#000000';
   ctx.font = '18px sans-serif';
   ctx.textAlign = 'center';
+  ctx.strokeStyle = '#000000'; // black for board color
   for (let i = 0; i < rows; i++) {
     // horizontal
     let p = getPosition(i, 0);
@@ -88,8 +89,8 @@ function drawBoard(rows, cols) {
     let p = getPosition(0, i);
     let q = getPosition(rows - 1, i);
     line(p[0], p[1], q[0], q[1]);
-    ctx.fillText(`${i + 1}`, p[0], p[1] - 32);
-    ctx.fillText(`${i + 1}`, q[0], q[1] + 50);
+    ctx.fillText(`${i + 1}`, p[0], p[1] + 50);
+    ctx.fillText(`${i + 1}`, q[0], q[1] - 30);
   }
   for (let r of SPECIAL) {
     for (let c of SPECIAL) {
@@ -106,7 +107,6 @@ function drawStone(row, col, color) {
   ellipse(p[0], p[1], RADIUS, RADIUS);
   ctx.fillStyle = color;
   ctx.fill();
-  ctx.strokeStyle = '8px';
   ctx.stroke();
 }
 
@@ -131,6 +131,7 @@ for (let i = 0; i < ROWS; i++) {
 }
 
 var toMove = 0;
+var lastMove = [-1, -1];
 const moves = [];
 
 function updateBoard(ghostRow, ghostCol) {
@@ -145,9 +146,19 @@ function updateBoard(ghostRow, ghostCol) {
       }
     }
   }
+  if (lastMove[0] != -1) {
+    let p = getPosition(lastMove[0], lastMove[1]);
+    ctx.strokeStyle = STONE_COLOR[toMove];
+    ellipse(p[0], p[1], RADIUS * 3 / 5, RADIUS * 3 / 5);
+  }
 }
 
-const DIRS = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+const DIRS = [
+  [1, 0],
+  [0, 1],
+  [-1, 0],
+  [0, -1]
+];
 
 function bfs(sr, sc, player) {
   if (board[sr][sc] != player) {
@@ -161,7 +172,9 @@ function bfs(sr, sc, player) {
     }
     was.push(row);
   }
-  let q = [[sr, sc]];
+  let q = [
+    [sr, sc]
+  ];
   let ptr = 0;
   let air = 0;
   while (ptr < q.length) {
@@ -203,32 +216,12 @@ function move(row, col) {
   }
   log.innerHTML += (toMove == 0 ? 'black' : 'white');
   log.innerHTML += ` placed a stone at (${row + 1}, ${col + 1})<br>`;
+  lastMove = [row, col];
   board[row][col] = toMove;
   moves.push([row, col]);
   capture(row, col);
   bfs(row, col, board[row][col]);
   toMove ^= 1;
-  updateBoard(-1, -1);
-  return true;
-}
-
-function undo() {
-  if (moves.length == 0) {
-    return false;
-  }
-  let m = moves[moves.length - 1];
-  board[m[0]][m[1]] = -1;
-  moves.pop();
-  toMove ^= 1;
-  updateBoard(-1, -1);
-  return true;
-}
-
-function remove(row, col) {
-  if (board[row][col] == -1) {
-    return false;
-  }
-  board[row][col] = -1;
   updateBoard(-1, -1);
   return true;
 }
@@ -244,13 +237,9 @@ function loadGame(str) {
     row = row.substr(1, row.length - 2);
     let col = m[6];
     col = col.substr(0, col.length - 1);
-    row--; col--;
+    row--;
+    col--;
     // console.log(`(${row}, ${col})`);
     move(row, col);
   }
 }
-
-let str = `
-`;
-
-loadGame(str);
