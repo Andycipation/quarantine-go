@@ -2,8 +2,10 @@
 
 */
 
+const LOCAL_IP = 'localhost';
+// const LOCAL_IP = '192.168.2.26'; // Raspberry Pi's IP address
 const PORT = 8000;
-const socket = io.connect(`http://localhost:${PORT}`);
+const socket = io.connect(`http://${LOCAL_IP}:${PORT}`);
 
 var clientTurn = false;
 
