@@ -30,10 +30,7 @@ canvas.onmousemove = function(e) {
     return;
   }
   let p = getCoordinate(e.x, e.y);
-  if (p[0] == -1) {
-    return;
-  }
-  updateBoard(p[0], p[1]);
+  updateBoard(p[0], p[1]); // if p is [-1, -1] then no ghost will show
 }
 
 canvas.onclick = function(e) {
@@ -44,7 +41,10 @@ canvas.onclick = function(e) {
   if (p[0] == -1) {
     return;
   }
-  move(p[0], p[1]);
+  if (!move(p[0], p[1])) { // invalid move
+    alert('Invalid move!');
+    return;
+  }
   socket.emit('move', { row: p[0], col: p[1] });
   clientTurn = false;
 }
@@ -56,10 +56,7 @@ function setupOffline() {
 
 canvas.onmousemove = function(e) {
   let p = getCoordinate(e.x, e.y);
-  if (p[0] == -1) {
-    return;
-  }
-  updateBoard(p[0], p[1]);
+  updateBoard(p[0], p[1]); // if p is [-1, -1] then no ghost will show
 }
 
 canvas.onclick = function(e) {
@@ -67,7 +64,9 @@ canvas.onclick = function(e) {
   if (p[0] == -1) {
     return;
   }
-  move(p[0], p[1]);
+  if (!move(p[0], p[1])) { // invalid move
+    alert('Invalid move!');
+  }
 }
 
 } // end setupOffline
@@ -77,7 +76,11 @@ try {
   setupClient();
 } catch (err) { // offline version
   console.log(err);
-  setupOffline();
+  if (err instanceof ReferenceError) {
+    setupOffline();
+  } else {
+    throw err;
+  }
 }
 
 updateBoard(-1, -1);

@@ -121,18 +121,33 @@ function showGhost(row, col) {
   drawStone(row, col, GHOST_COLOR[toMove]);
 }
 
-const board = [];
-for (let i = 0; i < ROWS; i++) {
-  const row = [];
-  for (let j = 0; j < COLS; j++) {
-    row.push(-1);
+function cloneBoard(board) {
+  let b = Array(board.length);
+  for (let i = 0; i < board.length; i++) {
+    b[i] = Array(board[i].length);
+    for (let j = 0; j < board[i].length; j++) {
+      b[i][j] = board[i][j];
+    }
   }
-  board.push(row);
+  return b;
 }
 
-var toMove = 0;
-var lastMove = [-1, -1];
-const moves = [];
+function equalBoards(a, b) {
+  if (a.length != b.length) {
+    return false;
+  }
+  for (let i = 0; i < a.length; i++) {
+    if (a[i].length != b[i].length) {
+      return false;
+    }
+    for (let j = 0; j < a[i].length; j++) {
+      if (a[i][j] != b[i][j]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
 
 function updateBoard(ghostRow, ghostCol) {
   ctx.clearRect(0, 0, 700, 700);
@@ -153,6 +168,20 @@ function updateBoard(ghostRow, ghostCol) {
   }
 }
 
+var board = Array(ROWS);
+for (let i = 0; i < ROWS; i++) {
+  board[i] = Array(COLS);
+  for (let j = 0; j < COLS; j++) {
+    board[i][j] = -1;
+  }
+}
+var lastBoard = cloneBoard(board);
+
+var toMove = 0;
+var lastMove = [-1, -1];
+
+const was = cloneBoard(board);
+
 const DIRS = [
   [1, 0],
   [0, 1],
@@ -160,25 +189,29 @@ const DIRS = [
   [0, -1]
 ];
 
-function bfs(sr, sc, player) {
-  if (board[sr][sc] != player) {
+/*
+The component containing board[sr][sc] is the component for which we are
+checking to be captured.
+*/
+function bfs(board, sr, sc) {
+  let player = board[sr][sc];
+  if (player == -1) {
+    throw new Error('started bfs from an empty square');
     return;
   }
-  let was = [];
   for (let i = 0; i < ROWS; i++) {
-    let row = [];
     for (let j = 0; j < COLS; j++) {
-      row.push(false);
+      was[i][j] = false;
     }
-    was.push(row);
   }
   let q = [
     [sr, sc]
   ];
-  let ptr = 0;
+  was[sr][sc] = true;
+  let f = 0; // front of queue
   let air = 0;
-  while (ptr < q.length) {
-    let p = q[ptr++];
+  while (f < q.length) {
+    let p = q[f++];
     for (let d of DIRS) {
       let r = p[0] + d[0];
       let c = p[1] + d[1];
@@ -197,15 +230,20 @@ function bfs(sr, sc, player) {
     for (let p of q) {
       board[p[0]][p[1]] = -1;
     }
+    return true; // stones captured
   }
+  return false; // no stones were captured
 }
 
-function capture(row, col) {
+function capture(board, row, col) {
   for (let d of DIRS) {
     let r = row + d[0];
     let c = col + d[1];
-    if (inRange(r, c)) {
-      bfs(r, c, board[row][col] ^ 1);
+    if (!inRange(r, c)) {
+      continue;
+    }
+    if (board[r][c] == (board[row][col] ^ 1)) {
+      bfs(board, r, c);
     }
   }
 }
@@ -214,13 +252,23 @@ function move(row, col) {
   if (board[row][col] != -1) {
     return false;
   }
+  let newBoard = cloneBoard(board);
+  newBoard[row][col] = toMove;
+  capture(newBoard, row, col);
+  if (bfs(newBoard, row, col)) {
+    return false; // invalid move: suicidal
+  }
+  if (equalBoards(lastBoard, newBoard)) {
+    return false; // invalid move: Ko rule violation
+  }
+  // valid move
+  // update boards
+  lastBoard = cloneBoard(board);
+  board = cloneBoard(newBoard);
+  // update last move
+  lastMove = [row, col];
   log.innerHTML += (toMove == 0 ? 'black' : 'white');
   log.innerHTML += ` placed a stone at (${row + 1}, ${col + 1})<br>`;
-  lastMove = [row, col];
-  board[row][col] = toMove;
-  moves.push([row, col]);
-  capture(row, col);
-  bfs(row, col, board[row][col]);
   toMove ^= 1;
   updateBoard(-1, -1);
   return true;
@@ -255,5 +303,3 @@ function loadGame(str) {
 // `;
 //
 // loadGame(str);
-
-// exports.move = move;
