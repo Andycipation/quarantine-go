@@ -243,3 +243,17 @@ function loadGame(str) {
     move(row, col);
   }
 }
+
+// let str = `
+// black placed a stone at (11, 12)
+// white placed a stone at (6, 6)
+// black placed a stone at (14, 9)
+// white placed a stone at (10, 9)
+// black placed a stone at (8, 12)
+// white placed a stone at (5, 16)
+// black placed a stone at (4, 11)
+// `;
+//
+// loadGame(str);
+
+// exports.move = move;
