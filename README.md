@@ -2,7 +2,7 @@
 A project I made during the lockdown.
 
 To run the 2-player server version, change the IP address in the script.js file to the IP address of the server, and run
-`node server.js` (or `nodejs server.js` on Linux?) to start the server. Then, connect to the IP address in the server file.
+`node server.js` (or `nodejs server.js` on Linux?) from the command line to start the server. Then, connect to the IP address in the server file.
 
 As of now, the order of connection determines who is black and who is white.
 
