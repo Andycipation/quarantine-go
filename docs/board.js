@@ -47,14 +47,14 @@ const RADIUS = SIZE / 2;
 const MARGIN = 60;
 
 // regular-sized board:
-const ROWS = 19;
-const COLS = 19;
-const SPECIAL = [3, 9, 15]; // intersections to mark
+// const ROWS = 19;
+// const COLS = 19;
+// const SPECIAL = [3, 9, 15]; // intersections to mark
 
 // smaller board:
-// const ROWS = 9;
-// const COLS = 9;
-// const SPECIAL = [2, 6];
+const ROWS = 9;
+const COLS = 9;
+const SPECIAL = [2, 6];
 
 function inRange(r, c) {
   return (0 <= r && r < ROWS && 0 <= c && c < COLS);
