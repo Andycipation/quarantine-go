@@ -13,4 +13,5 @@ TODO:
 - better connection interface, e.g.:
   - don't make connection order determine who is black/white
   - allow more than 2 people at a time
-- better "invalid move" alert, e.g. include reason
+- better "invalid move" alert, e.g. include the reason the move was invalid
+- allow choosing board size from UI, not just by changing code
