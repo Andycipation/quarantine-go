@@ -15,3 +15,4 @@ TODO:
   - allow more than 2 people at a time
 - better "invalid move" alert, e.g. include the reason the move was invalid
 - allow choosing board size from UI, not just by changing code
+  - change the canvas size when board size is changed
