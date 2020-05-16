@@ -7,7 +7,7 @@ const log = document.getElementById('game-log');
 const ctx = canvas.getContext('2d');
 
 const STONE_COLOR = ['#000000', '#ffffff'];
-const GHOST_COLOR = ['#383838', '#e8e8e8'];
+const GHOST_COLOR = ['#555555', '#e8e8e8'];
 
 /**
  * Equivalent to the processing.js line().
@@ -35,6 +35,10 @@ function ellipse(x, y, radiusX, radiusY) {
   ctx.moveTo(x + radiusX, y);
   ctx.ellipse(x, y, radiusX, radiusY, 0, 0, 2 * Math.PI);
   ctx.stroke();
+}
+
+function circle(x, y, radius) {
+  ellipse(x, y, radius, radius);
 }
 
 
@@ -95,30 +99,24 @@ function drawBoard(rows, cols) {
   for (let r of SPECIAL) {
     for (let c of SPECIAL) {
       let p = getPosition(r, c);
-      ellipse(p[0], p[1], 6, 6);
-      ctx.fillStyle = '#000000';
+      circle(p[0], p[1], 6);
       ctx.fill();
     }
   }
 }
 
-function drawStone(row, col, color) {
+function drawStone(row, col, player) {
   let p = getPosition(row, col);
-  ellipse(p[0], p[1], RADIUS, RADIUS);
-  ctx.fillStyle = color;
+  circle(p[0], p[1], RADIUS);
+  ctx.fillStyle = STONE_COLOR[player];
   ctx.fill();
-  ctx.stroke();
 }
 
-function placeStone(row, col, player) {
-  if (player == -1) {
-    return;
-  }
-  drawStone(row, col, STONE_COLOR[player]);
-}
-
-function showGhost(row, col) {
-  drawStone(row, col, GHOST_COLOR[toMove]);
+function drawGhost(row, col, player) {
+  let p = getPosition(row, col);
+  circle(p[0], p[1], RADIUS);
+  ctx.fillStyle = GHOST_COLOR[player];
+  ctx.fill();
 }
 
 function cloneBoard(board) {
@@ -154,17 +152,19 @@ function updateBoard(ghostRow, ghostCol) {
   drawBoard(ROWS, COLS);
   for (let i = 0; i < ROWS; i++) {
     for (let j = 0; j < COLS; j++) {
-      if (i == ghostRow && j == ghostCol && board[i][j] == -1) {
-        showGhost(i, j);
+      if (board[i][j] != -1) {
+        drawStone(i, j, board[i][j]);
       } else {
-        placeStone(i, j, board[i][j]);
+        if (i == ghostRow && j == ghostCol) {
+          drawGhost(i, j, toMove);
+        }
       }
     }
   }
   if (lastMove[0] != -1) {
     let p = getPosition(lastMove[0], lastMove[1]);
     ctx.strokeStyle = STONE_COLOR[toMove];
-    ellipse(p[0], p[1], RADIUS * 3 / 5, RADIUS * 3 / 5);
+    circle(p[0], p[1], RADIUS * 3 / 5);
   }
 }
 
@@ -177,7 +177,7 @@ for (let i = 0; i < ROWS; i++) {
 }
 var lastBoard = cloneBoard(board);
 
-var toMove = 0;
+var toMove = 0; // player id of player who is next to move
 var lastMove = [-1, -1];
 
 const was = cloneBoard(board);
@@ -250,7 +250,7 @@ function capture(board, row, col) {
 
 function move(row, col) {
   if (board[row][col] != -1) {
-    return false;
+    return false; // invalid move: square currently contains a stone
   }
   let newBoard = cloneBoard(board);
   newBoard[row][col] = toMove;
