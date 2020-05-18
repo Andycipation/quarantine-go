@@ -9,9 +9,12 @@ To run the 2-player server version:
 
 As of now, the order of connection determines who is black and who is white.
 
-The stuff in the 'docs' directory is all for the offline version hosted on my GitHub pages, at https://andrewdongandy.github.io/quarantine-go/.
+The 'docs' directory has all of the client files for the game. It is named so because that is the only (is it?) option to host the page, other than hosting from the root of the repository.
+
 
 ## TODO
+
+Highest priority: **host this on Heroku!** This isn't as fun as programming the game elements, but it's definitely has a big long-term benefit.
 
 ### Higher priority
 - better connection interface, e.g.:
@@ -30,3 +33,4 @@ The stuff in the 'docs' directory is all for the offline version hosted on my Gi
 - more robust game log
   - save game to file, load game from file
   - game replays
+- add 
