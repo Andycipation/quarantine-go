@@ -27,6 +27,7 @@ This isn't as fun as programming the game elements, but it's definitely has a bi
   - allowing a user to pass
   - counting territory; possibly include different types
 - track number of stones placed/captured
+- chat room; this is also useful for endgame stuff
 
 ### Low priority
 - better "invalid move" alert, e.g. include the reason the move was invalid
@@ -36,4 +37,5 @@ This isn't as fun as programming the game elements, but it's definitely has a bi
 - more robust game log
   - save game to file, load game from file
   - game replays
-- add 
+  - show a numbered list on the side
+
