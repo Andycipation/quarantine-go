@@ -14,9 +14,12 @@ The 'docs' directory has all of the client files for the game. It is named so be
 
 ## TODO
 
-Highest priority: **host this on Heroku!** This isn't as fun as programming the game elements, but it's definitely has a big long-term benefit.
+### Highest priority
+**Host this on Heroku!**
 
-### Higher priority
+This isn't as fun as programming the game elements, but it's definitely has a big long-term benefit.
+
+### High priority
 - better connection interface, e.g.:
   - don't make the connection order determine who is black/white
   - allow more than two people at a time, e.g. spectators or game rooms
@@ -25,7 +28,7 @@ Highest priority: **host this on Heroku!** This isn't as fun as programming the 
   - counting territory; possibly include different types
 - track number of stones placed/captured
 
-### Lower priority
+### Low priority
 - better "invalid move" alert, e.g. include the reason the move was invalid
 - allow choosing board size from UI, not just by changing code
   - change the canvas size when board size is changed
