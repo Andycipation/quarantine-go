@@ -2,8 +2,8 @@
 
 */
 
-const LOCAL_IP = 'localhost';
-// const LOCAL_IP = '192.168.2.26'; // Raspberry Pi's IP address
+// const LOCAL_IP = 'localhost';
+const LOCAL_IP = '192.168.2.26'; // Raspberry Pi's IP address
 const PORT = 8000;
 
 
