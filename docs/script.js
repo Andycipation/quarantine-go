@@ -4,7 +4,7 @@
 
 // const LOCAL_IP = 'localhost';
 const LOCAL_IP = '192.168.2.26'; // Raspberry Pi's IP address
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 
 function setupClient() {
