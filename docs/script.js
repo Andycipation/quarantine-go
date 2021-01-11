@@ -9,7 +9,9 @@ const PORT = process.env.PORT || 8000;
 
 function setupClient() {
 
-const socket = io.connect(`http://${LOCAL_IP}:${PORT}`);
+// const LINK = `http://${LOCAL_IP}:${PORT}`;
+const LINK = 'https://quarantine-go.herokuapp.com/';
+const socket = io.connect(LINK);
 
 let clientTurn = false;
 socket.on('player_assignment', data => {
