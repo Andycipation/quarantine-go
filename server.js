@@ -10,7 +10,7 @@ app.use(express.static('docs'));
 //   res.redirect('https://andrewdongandy.github.io/quarantine-go/');
 // });
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 const server = app.listen(PORT);
 
 const socket_io = require('socket.io');
