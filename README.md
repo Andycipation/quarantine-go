@@ -9,8 +9,6 @@ To run the 2-player server version:
 
 As of now, the order of connection determines who is black and who is white.
 
-The 'docs' directory has all of the client files for the game. It is named so because that is the only (is it?) option to host the page, other than hosting from the root of the repository.
-
 
 ## TODO
 

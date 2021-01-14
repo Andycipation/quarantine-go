@@ -4,11 +4,7 @@ Server code.
 
 const express = require('express');
 const app = express();
-app.use(express.static('docs'));
-
-// app.get('*', (req, res) => {
-//   res.redirect('https://andrewdongandy.github.io/quarantine-go/');
-// });
+app.use(express.static('public'));
 
 const PORT = process.env.PORT || 8000;
 const server = app.listen(PORT);

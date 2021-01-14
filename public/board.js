@@ -204,14 +204,11 @@ function bfs(board, sr, sc) {
       was[i][j] = false;
     }
   }
-  let q = [
-    [sr, sc]
-  ];
+  let que = [[sr, sc]];
   was[sr][sc] = true;
-  let f = 0; // front of queue
   let air = 0;
-  while (f < q.length) {
-    let p = q[f++];
+  for (let b = 0; b < q.length; b++) {
+    let p = que[b];
     for (let d of DIRS) {
       let r = p[0] + d[0];
       let c = p[1] + d[1];
@@ -220,14 +217,14 @@ function bfs(board, sr, sc) {
       }
       was[r][c] = true;
       if (board[r][c] == -1) {
-        air++;
+        air += 1;
       } else if (board[r][c] == player) {
-        q.push([r, c]);
+        que.push([r, c]);
       }
     }
   }
   if (air == 0) {
-    for (let p of q) {
+    for (let p of que) {
       board[p[0]][p[1]] = -1;
     }
     return true; // stones captured
