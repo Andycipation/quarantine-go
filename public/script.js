@@ -1,14 +1,13 @@
 /*
-
+The client-side logic.
 */
-
-// const LOCAL_IP = 'localhost';
-// const LOCAL_IP = '192.168.2.26'; // Raspberry Pi's IP address
-const PORT = process.env.PORT || 8000;
 
 
 function setupClient() {
 
+// const LOCAL_IP = '192.168.2.26'; // Raspberry Pi's IP address
+const LOCAL_IP = 'localhost';
+const PORT = process.env.PORT || 8000;
 const LINK = `http://${LOCAL_IP}:${PORT}`;
 // const LINK = 'https://quarantine-go.herokuapp.com/';
 const socket = io.connect(LINK);
@@ -36,6 +35,7 @@ canvas.onmousemove = function(e) {
 }
 
 canvas.onclick = function(e) {
+  alert('clicked');
   if (!clientTurn) {
     return;
   }
@@ -86,3 +86,4 @@ try {
 }
 
 updateBoard(-1, -1);
+// alert('end of script.js');

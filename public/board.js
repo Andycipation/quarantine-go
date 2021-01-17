@@ -42,19 +42,22 @@ function circle(x, y, radius) {
 }
 
 
-const SIZE = 32;
-const RADIUS = SIZE / 2;
-const MARGIN = 60;
+const RADIUS = 16; // stone radius
+const SIZE = RADIUS * 2; // space between lines
+const MARGIN = 60; // margin on all sides
 
 // regular-sized board:
-// const ROWS = 19;
-// const COLS = 19;
-// const SPECIAL = [3, 9, 15]; // intersections to mark
+const ROWS = 19;
+const COLS = 19;
+const SPECIAL = [3, 9, 15]; // intersections to mark
 
 // smaller board:
-const ROWS = 9;
-const COLS = 9;
-const SPECIAL = [2, 6];
+// const ROWS = 9;
+// const COLS = 9;
+// const SPECIAL = [2, 6];
+
+canvas.setAttribute('height', `${2 * MARGIN + (ROWS - 1) * SIZE}`);
+canvas.setAttribute('width', `${2 * MARGIN + (COLS - 1) * SIZE}`);
 
 function inRange(r, c) {
   return (0 <= r && r < ROWS && 0 <= c && c < COLS);
@@ -79,7 +82,7 @@ function drawBoard(rows, cols) {
   ctx.fillStyle = '#000000';
   ctx.font = '18px sans-serif';
   ctx.textAlign = 'center';
-  ctx.strokeStyle = '#000000'; // black for board color
+  ctx.strokeStyle = '#000000'; // black for board lines
   for (let i = 0; i < rows; i++) {
     // horizontal
     let p = getPosition(i, 0);
@@ -93,7 +96,7 @@ function drawBoard(rows, cols) {
     let p = getPosition(0, i);
     let q = getPosition(rows - 1, i);
     line(p[0], p[1], q[0], q[1]);
-    ctx.fillText(`${i + 1}`, p[0], p[1] + 50);
+    ctx.fillText(`${i + 1}`, p[0], p[1] + 45);
     ctx.fillText(`${i + 1}`, q[0], q[1] - 30);
   }
   for (let r of SPECIAL) {

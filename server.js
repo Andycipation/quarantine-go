@@ -16,7 +16,7 @@ const io = socket_io(server);
 const ids = new Set();
 
 io.on('connect', socket => {
-  console.log('new socket with id ' + socket.id);
+  console.log(`new socket with id ${socket.id}`);
   socket.emit('player_assignment', { playerNumber: ids.size });
   console.log('sent player assignment ' + ids.size);
   ids.add(socket.id);
