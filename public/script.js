@@ -3,14 +3,14 @@
 */
 
 // const LOCAL_IP = 'localhost';
-const LOCAL_IP = '192.168.2.26'; // Raspberry Pi's IP address
+// const LOCAL_IP = '192.168.2.26'; // Raspberry Pi's IP address
 const PORT = process.env.PORT || 8000;
 
 
 function setupClient() {
 
-// const LINK = `http://${LOCAL_IP}:${PORT}`;
-const LINK = 'https://quarantine-go.herokuapp.com/';
+const LINK = `http://${LOCAL_IP}:${PORT}`;
+// const LINK = 'https://quarantine-go.herokuapp.com/';
 const socket = io.connect(LINK);
 
 let clientTurn = false;
