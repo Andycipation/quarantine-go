@@ -2,20 +2,14 @@
 A project I made during the lockdown.
 
 To run the 2-player server version:
-1. Change the IP address in the script.js file to the IP address of the server, and change the port if desired.
-2. Ensure Node.js is installed on the host device.
-3. Start the server by running `node server.js` (or `nodejs server.js` on Linux) from the command line.
-4. Connect to the IP address and port configured in step 1.
+1. Ensure Node.js is installed on the host device.
+2. Start the server by running `node server.js` (or `nodejs server.js` on Linux) from the command line.
+3. Connect to the IP address and port of the host.
 
 As of now, the order of connection determines who is black and who is white.
 
 
 ## TODO
-
-### Highest priority
-**Host this on Heroku!**
-
-This isn't as fun as programming the game elements, but it's definitely has a big long-term benefit.
 
 ### High priority
 - better connection interface, e.g.:
@@ -36,4 +30,3 @@ This isn't as fun as programming the game elements, but it's definitely has a bi
   - save game to file, load game from file
   - game replays
   - show a numbered list on the side
-

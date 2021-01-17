@@ -15,21 +15,34 @@ const io = socket_io(server);
 // assume only 2 players for now
 const ids = new Set();
 
-io.on('connect', socket => {
+let rooms = 0;
+
+io.on('connection', socket => {
   console.log(`new socket with id ${socket.id}`);
   socket.emit('player_assignment', { playerNumber: ids.size });
   console.log('sent player assignment ' + ids.size);
   ids.add(socket.id);
+  socket.join(`room${rooms}`);
   
   socket.on('move', data => {
     // console.log(data);
     socket.broadcast.emit('opponent_moved', data);
   });
+
+  socket.on('command', data => {
+    // console.log('got a command');
+    // console.log(data);
+    data = data.trim().substring(1);
+    let command = data.split(' ')[0];
+    console.log(`command: ${command}`);
+  });
   
   socket.on('disconnect', () => {
     console.log('socket id ' + socket.id + ' disconnected');
     ids.delete(socket.id);
-  })
+  });
 });
+
+
 
 console.log('server is up and running')

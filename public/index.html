@@ -11,8 +11,12 @@
     <div id="game-log">
       <h3>Game Log</h3>
     </div>
-    <script src="/socket.io/socket.io.js"></script> <!-- for use in script.js -->
+    <form id="form-chat">
+      <input id="input"/>
+      <input type="button" value="Send"/>
+    </form>
+    <script src="/socket.io/socket.io.js"></script> <!-- for use in client.js -->
     <script src="board.js"></script>
-    <script src="script.js"></script>
+    <script src="client.js"></script>
   </body>
 </html>

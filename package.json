@@ -2,11 +2,10 @@
   "name": "quarantine-go",
   "version": "1.0.0",
   "description": "My version of Go.",
-  "main": "script.js",
+  "main": "client.js",
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^3.1.0",
-    "socket.io-client": "^3.1.0"
+    "socket.io": "^3.1.0"
   },
   "devDependencies": {},
   "scripts": {
