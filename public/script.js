@@ -36,7 +36,7 @@ canvas.onmousemove = function(e) {
   if (!clientTurn) {
     return;
   }
-  let p = getCoordinate(e.x, e.y);
+  let p = getCoordinate(e.pageX, e.pageY);
   updateBoard(p[0], p[1]); // if p is [-1, -1] then no ghost will show
 }
 
@@ -44,7 +44,7 @@ canvas.onclick = function(e) {
   if (!clientTurn) {
     return;
   }
-  let p = getCoordinate(e.x, e.y);
+  let p = getCoordinate(e.pageX, e.pageY);
   if (p[0] == -1) {
     return;
   }
@@ -62,12 +62,12 @@ canvas.onclick = function(e) {
 function setupOffline() {
 
 canvas.onmousemove = function(e) {
-  let p = getCoordinate(e.x, e.y);
+  let p = getCoordinate(e.pageX, e.pageY);
   updateBoard(p[0], p[1]); // if p is [-1, -1] then no ghost will show
 }
 
 canvas.onclick = function(e) {
-  let p = getCoordinate(e.x, e.y);
+  let p = getCoordinate(e.pageX, e.pageY);
   if (p[0] == -1) {
     return;
   }

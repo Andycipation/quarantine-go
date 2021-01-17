@@ -31,3 +31,5 @@ io.on('connect', socket => {
     ids.delete(socket.id);
   })
 });
+
+console.log('server is up and running')
