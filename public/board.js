@@ -210,7 +210,7 @@ function bfs(board, sr, sc) {
   let que = [[sr, sc]];
   was[sr][sc] = true;
   let air = 0;
-  for (let b = 0; b < q.length; b++) {
+  for (let b = 0; b < que.length; b++) {
     let p = que[b];
     for (let d of DIRS) {
       let r = p[0] + d[0];

@@ -5,12 +5,18 @@ The client-side logic.
 
 function setupClient() {
 
-// const LOCAL_IP = '192.168.2.26'; // Raspberry Pi's IP address
-const LOCAL_IP = 'localhost';
-const PORT = process.env.PORT || 8000;
-const LINK = `http://${LOCAL_IP}:${PORT}`;
-// const LINK = 'https://quarantine-go.herokuapp.com/';
-const socket = io.connect(LINK);
+// const io = require('socket.io-client');
+const socket = io(); // imported from the .html file
+// is there a better way to do this, e.g. using socket.io-client?
+
+// // const LOCAL_IP = '192.168.2.26'; // Raspberry Pi's IP address
+// const LOCAL_IP = 'localhost';
+// const PORT = 3000;
+// const LINK = `http://${LOCAL_IP}:${PORT}`;
+
+// // const LINK = 'https://quarantine-go.herokuapp.com/';
+// // const PORT = process.env.PORT || 3000;
+// const socket = io.connect(LINK);
 
 let clientTurn = false;
 socket.on('player_assignment', data => {
@@ -35,7 +41,6 @@ canvas.onmousemove = function(e) {
 }
 
 canvas.onclick = function(e) {
-  alert('clicked');
   if (!clientTurn) {
     return;
   }
@@ -76,10 +81,12 @@ canvas.onclick = function(e) {
 
 try {
   setupClient();
+  console.log('setting up client');
 } catch (err) { // offline version
   console.log(err);
   if (err instanceof ReferenceError) {
     setupOffline();
+    console.log('setting up offline version');
   } else {
     throw err;
   }
