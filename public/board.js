@@ -46,15 +46,17 @@ const RADIUS = 16; // stone radius
 const SIZE = RADIUS * 2; // space between lines
 const MARGIN = 60; // margin on all sides
 
-// regular-sized board:
-const ROWS = 19;
-const COLS = 19;
-const SPECIAL = [3, 9, 15]; // intersections to mark
 
-// smaller board:
-// const ROWS = 9;
-// const COLS = 9;
-// const SPECIAL = [2, 6];
+// TODO: control this from the server side
+// regular-sized board
+// const ROWS = 19;
+// const COLS = 19;
+// const SPECIAL = [3, 9, 15]; // intersections to mark
+
+// smaller board
+const ROWS = 9;
+const COLS = 9;
+const SPECIAL = [2, 6];
 
 canvas.setAttribute('height', `${2 * MARGIN + (ROWS - 1) * SIZE}`);
 canvas.setAttribute('width', `${2 * MARGIN + (COLS - 1) * SIZE}`);
